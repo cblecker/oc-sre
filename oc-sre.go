@@ -53,6 +53,7 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
+
 	if err := root.Execute(); err != nil {
 		os.Exit(1)
 	}

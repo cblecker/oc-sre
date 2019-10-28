@@ -68,6 +68,7 @@ func (o *SRECmdOptions) Complete() error {
 	if err != nil {
 		return err
 	}
+
 	o.KubeClient = kubeClient
 
 	return err
