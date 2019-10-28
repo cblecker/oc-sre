@@ -128,6 +128,7 @@ func (o *ConsoleCmdOptions) getAWSCredentials() (string, string, error) {
 		return "", "", fmt.Errorf("AWS credentials secret %v did not contain key %v",
 			awsCredsSecretName, awsCredsSecretIDKey)
 	}
+
 	secretAccessKey, ok := awsCredentialSecret.Data[awsCredsSecretAccessKey]
 	if !ok {
 		return "", "", fmt.Errorf("AWS credentials secret %v did not contain key %v",
@@ -211,6 +212,7 @@ func (o *ConsoleCmdOptions) Run() error {
 		Credentials: credentials.NewStaticCredentials(
 			awsAccessKeyID, awsSecretAccessKey, ""),
 	}
+
 	awsSession, err := session.NewSession(awsConfig)
 	if err != nil {
 		return err
@@ -222,6 +224,7 @@ func (o *ConsoleCmdOptions) Run() error {
 	}
 
 	url := fmt.Sprintf(loginURL, account)
+
 	pwd, err := password.Generate(32, 10, 0, false, false)
 	if err != nil {
 		return err
@@ -232,6 +235,7 @@ func (o *ConsoleCmdOptions) Run() error {
 		if err = deleteAWSLoginProfile(awsSession, osdAwsUsername); err != nil {
 			return err
 		}
+
 		return err
 	}
 
@@ -242,8 +246,8 @@ func (o *ConsoleCmdOptions) Run() error {
 			return err
 		}
 	}
-	fmt.Printf(consoleOutput, url, osdAwsUsername, pwd)
 
+	fmt.Printf(consoleOutput, url, osdAwsUsername, pwd)
 	time.Sleep(15 * time.Second)
 
 	go func() {
